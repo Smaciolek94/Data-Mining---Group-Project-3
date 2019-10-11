@@ -22,6 +22,9 @@ for(i in 1:nsplines){
 
 f <- function(x){
   for(j in 1:20){
-  model[[j]][1] + model[[j]][2]*x +  model[[j]][3]*x^2 + model[[j]][4]*x^3
+    if (data$x > (min+width*(j-1) && data$x < (min+width*j))) {
+       model[[j]][1] + model[[j]][2]*x +  model[[j]][3]*x^2 + model[[j]][4]*x^3
+    }
   }
 }
+plot.function(f,x)

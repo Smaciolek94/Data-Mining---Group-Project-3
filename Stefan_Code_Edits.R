@@ -3,14 +3,14 @@
 x <- rnorm(10000,10,100)
 y <- x^3 + x^2 + x + rnorm(10000,0,1000000) #y is a polynomial function of x with some noise
 data <- data.frame(x,y)
-plot(x,y)
+plot(data$x,data$y,main="raw x vs y") #checking the fit of x and y
 
 #this fits a cubic polynomial model
 nsplines <- 20 # put the number of splines here
 width <- (max(data$x) - min(data$x)) / nsplines
 min <- min(x)
-model <- 0
-dim(model) <- nsplines
+#have to create an empty variable for the data
+model <- rep(0,nsplines)
 
 #fitting a cubic mondel for each slice
 for(i in 1:nsplines){
@@ -20,4 +20,8 @@ for(i in 1:nsplines){
 }
 
 
-
+f <- function(x){
+  for(j in 1:20){
+  model[[j]][1] + model[[j]][2]*x +  model[[j]][3]*x^2 + model[[j]][4]*x^3
+  }
+}

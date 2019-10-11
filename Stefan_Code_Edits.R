@@ -6,8 +6,8 @@ data <- data.frame(x,y)
 plot(data$x,data$y,main="raw x vs y") #checking the fit of x and y
 
 #this fits a cubic polynomial model
-nsplines <- 20 # put the number of splines here
-width <- (max(data$x) - min(data$x)) / nsplines
+nsplines <- 20 # put the number of slices here
+width <- (max(data$x) - min(data$x)) / nsplines #equal width for each slice
 min <- min(x)
 #have to create an empty variable for the data
 model <- rep(0,nsplines)
@@ -19,7 +19,8 @@ for(i in 1:nsplines){
     model[i] <- lm(subdata$y~poly(subdata$x,3)) #polynomial model of degree 3
 }
 
-
+#creating a function that strings together the cubic model for each slice
+#this part isn't working yet
 f <- function(x){
   for(j in 1:20){
     if (data$x > (min+width*(j-1) && data$x < (min+width*j))) {
